@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
     <script src="https://unpkg.com/ml5@0.12.2/dist/ml5.min.js"></script>
 
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body style="background-color: antiquewhite ">
     <script>
         //Objetos 
@@ -19,9 +23,9 @@
         let clearButton
 
 
-        function setup(){
+        function setup() {
             //inputs de entranmiento 64 , 64
-            canvas =createCanvas(400, 400)
+            canvas = createCanvas(400, 400)
 
             //configuracion red neuronal 
             let options = {
@@ -59,42 +63,42 @@
 
         }//setup
 
-        function modelLoaded(){
+        function modelLoaded() {
             //Otros procesos ...
             classifyImage()
         }
 
         //Analizar los datos de entrada (CANVAS)
-        function classifyImage(){
+        function classifyImage() {
             //Reescalado
             inputImage.copy(canvas, 0, 0, 400, 0, 0, 64, 64)
-            shapeClassifier.classify({ image: inputImage}, goResults)
+            shapeClassifier.classify({ image: inputImage }, goResults)
 
         }
 
-        function goResults(err, results){
-            if (err){
+        function goResults(err, results) {
+            if (err) {
                 consol.error(err)
-                return 
+                return
             }
 
-                //no hay error 
-                let descripcion = result[0].label
-                let confinza = results[0].confidence
+            //no hay error 
+            let descripcion = result[0].label
+            let confinza = results[0].confidence
 
-                resultDiv.html(`${descripcion} - Confianza: ${confianza}`)
+            resultDiv.html(`${descripcion} - Confianza: ${confianza}`)
         }
 
-        
 
-        function cleanCanvas(){
+
+        function cleanCanvas() {
             background(255)//BLANCO
-            
+
         }
 
-        function draw(){
+        function draw() {
             //Boton primario
-            if(mouseIsPressed){
+            if (mouseIsPressed) {
                 strokeWeight(8)
                 line(mouseX, mouseY, pmouseX, pmouseY)
             }
@@ -102,4 +106,5 @@
 
     </script>
 </body>
+
 </html>
